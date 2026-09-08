@@ -10,6 +10,10 @@
       "env": {
         "PERSONAL_ACCESS_TOKEN": "${PERSONAL_ACCESS_TOKEN}"
       }
+    },
+    "playwright-test": {
+      "command": "cmd",
+      "args": ["/c", "npx", "playwright", "run-test-mcp-server"]
     }
   }
 }
