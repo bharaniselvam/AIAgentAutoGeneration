@@ -33,4 +33,10 @@ export class EmployeeListPage extends BasePage {
   rowByEmployeeId(employeeId: string) {
     return this.page.getByRole('row', { name: new RegExp(`\\b${employeeId}\\b`) });
   }
+
+  async openEmployeeById(employeeId: string): Promise<void> {
+    await this.searchByEmployeeId(employeeId);
+    await this.rowByEmployeeId(employeeId).click();
+    await this.page.waitForURL('**/pim/viewPersonalDetails/empNumber/**');
+  }
 }
