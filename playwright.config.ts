@@ -8,7 +8,11 @@ export default defineConfig({
   fullyParallel: true,
   timeout: 60_000,
   retries: process.env.CI ? 2 : 0,
-  reporter: [['html'], ['json', { outputFile: 'test-results/results.json' }]],
+  reporter: [
+    ['html'],
+    ['json', { outputFile: 'test-results/results.json' }],
+    ['allure-playwright', { resultsDir: 'allure-results' }],
+  ],
   use: {
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',

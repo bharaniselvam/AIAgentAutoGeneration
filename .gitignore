@@ -6,3 +6,5 @@ node_modules/
 storage-state/
 *.log
 .playwright-mcp/
+/allure-results/
+/allure-report/
