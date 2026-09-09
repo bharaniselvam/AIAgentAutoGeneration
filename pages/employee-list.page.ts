@@ -9,6 +9,11 @@ export class EmployeeListPage extends BasePage {
   private readonly employeeIdSearchInput = this.page
     .locator('.oxd-input-group', { hasText: 'Employee Id' })
     .locator('input');
+  // Employee Name and Supervisor Name share the identical accessible name
+  // ("Type for hints...") in the OrangeHRM markup, so this is scoped by its label group too.
+  private readonly employeeNameSearchInput = this.page
+    .locator('.oxd-input-group', { hasText: 'Employee Name' })
+    .locator('input');
   private readonly searchButton = this.page.getByRole('button', { name: 'Search' });
 
   constructor(page: Page) {
@@ -27,6 +32,14 @@ export class EmployeeListPage extends BasePage {
 
   async searchByEmployeeId(employeeId: string): Promise<void> {
     await this.employeeIdSearchInput.fill(employeeId);
+    await this.searchButton.click();
+  }
+
+  async searchByEmployeeName(name: string): Promise<void> {
+    // pressSequentially (rather than fill) triggers the autocomplete debounce;
+    // clicking Search directly works without selecting a suggestion from the dropdown.
+    await this.employeeNameSearchInput.click();
+    await this.employeeNameSearchInput.pressSequentially(name);
     await this.searchButton.click();
   }
 
